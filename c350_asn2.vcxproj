@@ -76,7 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Opt.H" />
+    <ClInclude Include="Opt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Opt.cpp" />
