@@ -79,8 +79,12 @@
     <ClInclude Include="Opt.H" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Opt.C" />
+    <ClCompile Include="Opt.cpp" />
     <ClCompile Include="OptTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE.txt" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
