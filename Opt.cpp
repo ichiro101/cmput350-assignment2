@@ -8,6 +8,16 @@ Opt::~Opt(void) {
 
 }
 
+void process(int argc, std::string argv[]) {
+	std::vector<std::string> argumentsInString;
+	for(int i = 0; i < argc; i++) {
+		argumentsInString.push_back(std::string(argv[i]));
+	}
+
+	for(int i = 0; i < argc; i++) {
+	}
+}
+
 void Opt::add_switch(std::string option, std::string description) {
 
 }
