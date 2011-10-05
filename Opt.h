@@ -15,4 +15,5 @@ class Opt
 		void add_string(std::string option, std::string description, std::string value);
 
 		bool get_swtich(std::string option);
+		int get_int(std::string option);
 };

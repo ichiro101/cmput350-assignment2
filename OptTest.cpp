@@ -16,3 +16,11 @@ BEGIN_TEST(SwitchOption) {
 	WIN_ASSERT_FALSE(o.get_swtich("-a"));
 }
 END_TEST
+
+BEGIN_TEST(IntOption) {
+	Opt o;
+	o.add_int("-i", "Test Integer", 2);
+
+	WIN_ASSERT_EQUAL(2, o.get_int("-i"));
+}
+END_TEST
