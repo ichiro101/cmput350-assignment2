@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Opt.h"
+#include "Stack.h"
 
 using namespace std;
 
 void optExample(int argc, char* argv[]);
+void stackExample();
 
 int main(int argc, char* argv[]) {
 	cout << "What do you want to test?" << endl;
@@ -15,6 +17,8 @@ int main(int argc, char* argv[]) {
 	
 	if(value == 1) {
 		optExample(argc, argv);
+	} else if(value == 2) {
+		stackExample();
 	}
 	return EXIT_SUCCESS;
 }
@@ -28,4 +32,12 @@ void optExample(int argc, char* argv[]) {
 	o.add_switch("-a", "a generic switch");
 
 	o.process(argc, argv);
+}
+
+void stackExample() {
+	Stack<int> s;
+	s.push(5);
+
+	int test = s.top();
+	cout << "Number " << test << endl;
 }

@@ -17,7 +17,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -78,12 +78,14 @@
   <ItemGroup>
     <ClInclude Include="Opt.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="StandardError.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Opt.cpp" />
     <ClCompile Include="OptTest.cpp" />
+    <ClCompile Include="StackTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE.txt" />
