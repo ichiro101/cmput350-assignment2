@@ -21,6 +21,9 @@ public:
 	void add_string(std::string option, std::string description, std::string value);
 
 	bool get_switch(std::string option);
+	bool get_bool(std::string option);
+	double get_double(std::string option);
+	std::string get_string(std::string option);
 	int get_int(std::string option);
 
 private:

@@ -18,7 +18,7 @@ void Opt::process(int argc, char* argv[]) {
 		std::vector<std::string>::iterator argIter = std::find(argumentsInString.begin(), argumentsInString.end(), iter->first);
 		if(argIter != argumentsInString.end()) {
 			if(iter->second->getType() == TypeGeneric) {
-				throw "FATAL ERROR";
+				throw "FATAL ERROR 1";
 			} else if(iter->second->getType() == TypeSwitch) {
 				Option* switchOption = this->argumentMap.find(iter->first)->second;
 				static_cast<SwitchOption*>(switchOption)->value = true;
@@ -27,10 +27,10 @@ void Opt::process(int argc, char* argv[]) {
 
 				// take the next option for the value of the argument
 				argIter++;
-				std::string s = std::string(*argIter);
-
-				int value = atoi(s.c_str());
+				int value = atoi(argIter->c_str());
 				static_cast<IntegerOption*>(integerOption)->value = value;
+			} else {
+				throw "FATAL ERROR 2";
 			}
 		}
 	}
@@ -60,6 +60,22 @@ void Opt::add_int(std::string option, std::string description, int value) {
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, integerOption));
 }
 
+void Opt::add_double(std::string option, std::string description, double value) {
+	DoubleOption* doubleOption = new DoubleOption;
+	doubleOption->option = option;
+	doubleOption->description = description;
+	doubleOption->value = value;
+	this->argumentMap.insert(std::pair<std::string, Option*>(option, doubleOption));
+}
+
+void Opt::add_string(std::string option, std::string description, std::string value) {
+	StringOption* strOption = new StringOption;
+	strOption->option = option;
+	strOption->description = description;
+	strOption->value = value;
+	this->argumentMap.insert(std::pair<std::string, Option*>(option, strOption));
+}
+
 bool Opt::get_switch(std::string option) {
 	Option* switchOption = this->argumentMap.find(option)->second;
 	return static_cast<BoolOption*>(switchOption)->value;
@@ -68,4 +84,17 @@ bool Opt::get_switch(std::string option) {
 int Opt::get_int(std::string option) {
 	Option* intOption = this->argumentMap.find(option)->second;
 	return static_cast<IntegerOption*>(intOption)->value;
+}
+
+bool Opt::get_bool(std::string option) {
+	return false;
+}
+
+double Opt::get_double(std::string option) {
+	return 2.0;
+}
+
+std::string Opt::get_string(std::string option) {
+
+	return "test";
 }

@@ -8,5 +8,3 @@ To run this project you must have:
 
 This project has not been tested on Linux systems but it should work on any Unix compliant
 systems as well as I'm not using any features of C++ that's perticular to the MSVC compiler
-
-Please note due to requirements you MUST compile .C as C++ code.

@@ -6,7 +6,9 @@ enum DataType {
 	TypeGeneric,
 	TypeInteger,
 	TypeBoolean,
-	TypeSwitch
+	TypeSwitch,
+	TypeDouble,
+	TypeString
 };
 
 class Option
@@ -47,5 +49,25 @@ public:
 
 	DataType getType() {
 		return TypeInteger;
+	}
+};
+
+class DoubleOption : public Option
+{
+public:
+	double value;
+
+	DataType getType() {
+		return TypeDouble;
+	}
+};
+
+class StringOption : public Option
+{
+public:
+	std::string value;
+
+	DataType getType() {
+		return TypeString;
 	}
 };
