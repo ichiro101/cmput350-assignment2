@@ -1,6 +1,6 @@
 // Uncomment the following line if you wish to run the Unit Tests
 // To run the unit tests YOU MUST have WinUnit and use the MSVC compiler
-#define TEST_STACK
+// #define TEST_STACK
 
 #ifdef TEST_STACK
 
