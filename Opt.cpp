@@ -9,7 +9,6 @@ Opt::~Opt(void) {
 }
 
 void Opt::process(int argc, char* argv[]) {
-	std::vector<std::string> argumentsInString;
 	for(int i = 0; i < argc; i++) {
 		argumentsInString.push_back(std::string(argv[i]));
 	}
@@ -39,6 +38,9 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 
 		// take the next option for the value of the argument
 		argIter++;
+		if(argIter == argumentsInString.end()) {
+			throw new StandardError("Expected Arguments to Option " + iter->second->option);
+		}
 
 		std::istringstream iss(argIter->c_str());
 		int value;
@@ -53,6 +55,9 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 
 		// take the next argument
 		argIter++;
+		if(argIter == argumentsInString.end()) {
+			throw new StandardError("Expected Arguments to Option " + iter->second->option);
+		}
 
 		std::istringstream iss(argIter->c_str());
 		double value;
@@ -66,6 +71,9 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 
 		// take the next argument
 		argIter++;
+		if(argIter == argumentsInString.end()) {
+			throw new StandardError("Expected Arguments to Option " + iter->second->option);
+		}
 
 		std::string value = *argIter;
 		static_cast<StringOption*>(stringOption)->value = value;
@@ -74,6 +82,9 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 
 		// take the next argument
 		argIter++;
+		if(argIter == argumentsInString.end()) {
+			throw new StandardError("Expected Arguments to Option " + iter->second->option);
+		}
 
 		int value = atoi(argIter->c_str());
 		if(value != 1 && value != 0) {
