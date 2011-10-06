@@ -19,49 +19,53 @@ void Opt::process(int argc, char* argv[]) {
 	for(iter = this->argumentMap.begin(); iter != this->argumentMap.end(); iter++) {
 		std::vector<std::string>::iterator argIter = std::find(argumentsInString.begin(), argumentsInString.end(), iter->first);
 		if(argIter != argumentsInString.end()) {
-			if(iter->second->getType() == TypeGeneric) {
-				throw "FATAL ERROR 1";
-			} else if(iter->second->getType() == TypeSwitch) {
-				Option* switchOption = this->argumentMap.find(iter->first)->second;
-				static_cast<SwitchOption*>(switchOption)->value = true;
-			} else if(iter->second->getType() == TypeInteger) {
-				Option* integerOption = this->argumentMap.find(iter->first)->second;
-
-				// take the next option for the value of the argument
-				argIter++;
-				int value = atoi(argIter->c_str());
-				static_cast<IntegerOption*>(integerOption)->value = value;
-			} else if(iter->second->getType() == TypeDouble) {
-				Option* doubleOption = this->argumentMap.find(iter->first)->second;
-
-				// take the next argument
-				argIter++;
-
-				double value = atof(argIter->c_str());
-				static_cast<DoubleOption*>(doubleOption)->value = value;
-			} else if(iter->second->getType() == TypeString) {
-				Option* stringOption = this->argumentMap.find(iter->first)->second;
-
-				// take the next argument
-				argIter++;
-
-				std::string value = *argIter;
-				static_cast<StringOption*>(stringOption)->value = value;
-			} else if(iter->second->getType() == TypeBoolean) {
-				Option* boolOption = this->argumentMap.find(iter->first)->second;
-
-				// take the next argument
-				argIter++;
-
-				int value = atoi(argIter->c_str());
-				if(value != 1 && value != 0) {
-					throw "Invalid option";
-				}
-				static_cast<BoolOption*>(boolOption)->value = value;
-			} else {
-				throw "FATAL ERROR 2";
-			}
+			processValueByType(iter, argIter);
 		}
+	}
+}
+
+void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std::vector<std::string>::iterator argIter) {
+	if(iter->second->getType() == TypeGeneric) {
+		throw "FATAL ERROR 1";
+	} else if(iter->second->getType() == TypeSwitch) {
+		Option* switchOption = this->argumentMap.find(iter->first)->second;
+		static_cast<SwitchOption*>(switchOption)->value = true;
+	} else if(iter->second->getType() == TypeInteger) {
+		Option* integerOption = this->argumentMap.find(iter->first)->second;
+
+		// take the next option for the value of the argument
+		argIter++;
+		int value = atoi(argIter->c_str());
+		static_cast<IntegerOption*>(integerOption)->value = value;
+	} else if(iter->second->getType() == TypeDouble) {
+		Option* doubleOption = this->argumentMap.find(iter->first)->second;
+
+		// take the next argument
+		argIter++;
+
+		double value = atof(argIter->c_str());
+		static_cast<DoubleOption*>(doubleOption)->value = value;
+	} else if(iter->second->getType() == TypeString) {
+		Option* stringOption = this->argumentMap.find(iter->first)->second;
+
+		// take the next argument
+		argIter++;
+
+		std::string value = *argIter;
+		static_cast<StringOption*>(stringOption)->value = value;
+	} else if(iter->second->getType() == TypeBoolean) {
+		Option* boolOption = this->argumentMap.find(iter->first)->second;
+
+		// take the next argument
+		argIter++;
+
+		int value = atoi(argIter->c_str());
+		if(value != 1 && value != 0) {
+			throw new StandardError("Invalid Arguments to Option " + iter->second->option);
+		}
+		static_cast<BoolOption*>(boolOption)->value = value;
+	} else {
+		throw "FATAL ERROR 2";
 	}
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Option.h"
+#include "StandardError.h"
 
 #include <vector>
 #include <map>
@@ -28,4 +29,5 @@ public:
 
 private:
 	std::map<std::string, Option*> argumentMap;
+	void processValueByType(std::map<std::string, Option*>::iterator iter, std::vector<std::string>::iterator argIter);
 };

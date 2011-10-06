@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="Opt.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="StandardError.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Opt.cpp" />
