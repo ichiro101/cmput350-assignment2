@@ -21,7 +21,7 @@ void Opt::process(int argc, char* argv[]) {
 			try{
 				processValueByType(iter, argIter);
 			} catch(StandardError* exception) {
-				std::cout << exception->message << std::endl;
+				std::cerr << exception->message << std::endl;
 				printOptions();
 			}
 		}
@@ -31,18 +31,18 @@ void Opt::process(int argc, char* argv[]) {
 void Opt::printOptions() {
 	std::map<std::string, Option*>::iterator iter;
 
-	std::cout << "Choices are:" << std::endl;
+	std::cerr << "Choices are:" << std::endl;
 	for(iter = this->argumentMap.begin(); iter != this->argumentMap.end(); iter++) {
 		std::string option = iter->first;
 		std::string description = iter->second->description;
 
 		// display the current option
-		std::cout << option << " : " << description;
-		std::cout << " ";
-		std::cout << "[" << iter->second->getTypeString() << "]";
-		std::cout << " ";
-		std::cout << iter->second->stringValue;
-		std::cout << std::endl;
+		std::cerr << option << " : " << description;
+		std::cerr << " ";
+		std::cerr << "[" << iter->second->getTypeString() << "]";
+		std::cerr << " ";
+		std::cerr << iter->second->stringValue;
+		std::cerr << std::endl;
 	}
 }
 

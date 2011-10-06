@@ -1,7 +1,7 @@
 // UNCOMMENT THE FOLLOWING if you wish to run the unit tests
-// #define TEST
+// #define TEST_OPT
 
-#ifdef TEST
+#ifdef TEST_OPT
 
 #include "WinUnit.h"
 #include "Opt.H"
