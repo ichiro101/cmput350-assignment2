@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Opt.cpp" />
-    <ClCompile Include="Option.cpp" />
     <ClCompile Include="OptTest.cpp" />
   </ItemGroup>
   <ItemGroup>
