@@ -16,9 +16,14 @@ class Option
 public:
 	std::string option;
 	std::string description;
+	std::string stringValue;
 
 	virtual DataType getType() {
 		return TypeGeneric;
+	}
+
+	virtual std::string getTypeString() {
+		return "generic";
 	}
 };
 
@@ -30,6 +35,10 @@ public:
 	DataType getType() {
 		return TypeSwitch;
 	}
+
+	std::string getTypeString() {
+		return "switch";
+	}
 };
 
 class BoolOption : public Option
@@ -39,6 +48,10 @@ public:
 
 	DataType getType() {
 		return TypeBoolean;
+	}
+
+	std::string getTypeString() {
+		return "boolean";
 	}
 };
 
@@ -50,6 +63,10 @@ public:
 	DataType getType() {
 		return TypeInteger;
 	}
+
+	std::string getTypeString() {
+		return "integer";
+	}
 };
 
 class DoubleOption : public Option
@@ -60,6 +77,10 @@ public:
 	DataType getType() {
 		return TypeDouble;
 	}
+
+	std::string getTypeString() {
+		return "double";
+	}
 };
 
 class StringOption : public Option
@@ -69,5 +90,9 @@ public:
 
 	DataType getType() {
 		return TypeString;
+	}
+
+	std::string getTypeString() {
+		return "string";
 	}
 };

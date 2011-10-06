@@ -22,14 +22,33 @@ void Opt::process(int argc, char* argv[]) {
 				processValueByType(iter, argIter);
 			} catch(StandardError* exception) {
 				std::cout << exception->message << std::endl;
+				printOptions();
 			}
 		}
 	}
 }
 
+void Opt::printOptions() {
+	std::map<std::string, Option*>::iterator iter;
+
+	std::cout << "Choices are:" << std::endl;
+	for(iter = this->argumentMap.begin(); iter != this->argumentMap.end(); iter++) {
+		std::string option = iter->first;
+		std::string description = iter->second->description;
+
+		// display the current option
+		std::cout << option << " : " << description;
+		std::cout << " ";
+		std::cout << "[" << iter->second->getTypeString() << "]";
+		std::cout << " ";
+		std::cout << iter->second->stringValue;
+		std::cout << std::endl;
+	}
+}
+
 void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std::vector<std::string>::iterator argIter) {
 	if(iter->second->getType() == TypeGeneric) {
-		throw "FATAL ERROR 1";
+		throw new StandardError("FATAL ERROR 1");
 	} else if(iter->second->getType() == TypeSwitch) {
 		Option* switchOption = this->argumentMap.find(iter->first)->second;
 		static_cast<SwitchOption*>(switchOption)->value = true;
@@ -92,7 +111,7 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 		}
 		static_cast<BoolOption*>(boolOption)->value = value;
 	} else {
-		throw "FATAL ERROR 2";
+		throw new StandardError("FATAL ERROR 2");
 	}
 }
 
@@ -101,6 +120,7 @@ void Opt::add_switch(std::string option, std::string description) {
 	switchOption->option = option;
 	switchOption->description = description;
 	switchOption->value = false;
+	switchOption->stringValue = "0";
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, switchOption));
 }
 
@@ -109,6 +129,10 @@ void Opt::add_bool(std::string option, std::string description, bool value) {
 	boolOption->option = option;
 	boolOption->description = description;
 	boolOption->value = value;
+	
+	std::stringstream ss;
+	ss << value;
+	boolOption->stringValue = ss.str();
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, boolOption));
 }
 
@@ -117,6 +141,10 @@ void Opt::add_int(std::string option, std::string description, int value) {
 	integerOption->option = option;
 	integerOption->description = description;
 	integerOption->value = value;
+
+	std::stringstream ss;
+	ss << value;
+	integerOption->stringValue = ss.str();
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, integerOption));
 }
 
@@ -125,6 +153,10 @@ void Opt::add_double(std::string option, std::string description, double value) 
 	doubleOption->option = option;
 	doubleOption->description = description;
 	doubleOption->value = value;
+
+	std::stringstream ss;
+	ss << value;
+	doubleOption->stringValue = ss.str();
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, doubleOption));
 }
 
@@ -133,6 +165,7 @@ void Opt::add_string(std::string option, std::string description, std::string va
 	strOption->option = option;
 	strOption->description = description;
 	strOption->value = value;
+	strOption->stringValue = value;
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, strOption));
 }
 

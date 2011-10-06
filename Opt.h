@@ -30,8 +30,10 @@ public:
 	int get_int(std::string option);
 
 private:
-	std::map<std::string, Option*> argumentMap;
 	void processValueByType(std::map<std::string, Option*>::iterator iter, std::vector<std::string>::iterator argIter);
+	void printOptions();
 
+	// ivars
+	std::map<std::string, Option*> argumentMap;
 	std::vector<std::string> argumentsInString;
 };
