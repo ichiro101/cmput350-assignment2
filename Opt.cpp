@@ -5,6 +5,7 @@ Opt::Opt(void) {
 }
 
 Opt::~Opt(void) {
+
 }
 
 void Opt::process(int argc, char* argv[]) {
@@ -14,6 +15,7 @@ void Opt::process(int argc, char* argv[]) {
 	}
 
 	std::map<std::string, Option*>::iterator iter;
+	// TODO: map
 	for(iter = this->argumentMap.begin(); iter != this->argumentMap.end(); iter++) {
 		std::vector<std::string>::iterator argIter = std::find(argumentsInString.begin(), argumentsInString.end(), iter->first);
 		if(argIter != argumentsInString.end()) {
@@ -29,6 +31,33 @@ void Opt::process(int argc, char* argv[]) {
 				argIter++;
 				int value = atoi(argIter->c_str());
 				static_cast<IntegerOption*>(integerOption)->value = value;
+			} else if(iter->second->getType() == TypeDouble) {
+				Option* doubleOption = this->argumentMap.find(iter->first)->second;
+
+				// take the next argument
+				argIter++;
+
+				double value = atof(argIter->c_str());
+				static_cast<DoubleOption*>(doubleOption)->value = value;
+			} else if(iter->second->getType() == TypeString) {
+				Option* stringOption = this->argumentMap.find(iter->first)->second;
+
+				// take the next argument
+				argIter++;
+
+				std::string value = *argIter;
+				static_cast<StringOption*>(stringOption)->value = value;
+			} else if(iter->second->getType() == TypeBoolean) {
+				Option* boolOption = this->argumentMap.find(iter->first)->second;
+
+				// take the next argument
+				argIter++;
+
+				int value = atoi(argIter->c_str());
+				if(value != 1 && value != 0) {
+					throw "Invalid option";
+				}
+				static_cast<BoolOption*>(boolOption)->value = value;
 			} else {
 				throw "FATAL ERROR 2";
 			}
@@ -87,14 +116,16 @@ int Opt::get_int(std::string option) {
 }
 
 bool Opt::get_bool(std::string option) {
-	return false;
+	Option* boolOption = this->argumentMap.find(option)->second;
+	return static_cast<BoolOption*>(boolOption)->value;
 }
 
 double Opt::get_double(std::string option) {
-	return 2.0;
+	Option* doubleOption = this->argumentMap.find(option)->second;
+	return static_cast<DoubleOption*>(doubleOption)->value;
 }
 
 std::string Opt::get_string(std::string option) {
-
-	return "test";
+	Option* stringOption = this->argumentMap.find(option)->second;
+	return static_cast<StringOption*>(stringOption)->value;
 }

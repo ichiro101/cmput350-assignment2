@@ -98,3 +98,49 @@ BEGIN_TEST(ProcessBooleanAndIntegerOption) {
 	WIN_ASSERT_EQUAL(false, o.get_switch("-s"));
 }
 END_TEST
+
+BEGIN_TEST(ProcessStringOption) {
+	Opt o;
+	o.add_string("-s", "String test", "default 1");
+	o.add_string("-a", "Another String test", "default 2");
+	WIN_ASSERT_STRING_EQUAL("default 1", o.get_string("-s").c_str());
+	WIN_ASSERT_STRING_EQUAL("default 2", o.get_string("-a").c_str());
+
+	int argc = 3;
+	char* argv[3];
+	argv[0] = "programName";
+	argv[1] = "-s";
+	argv[2] = "ipsum";
+
+	o.process(argc, argv);
+	WIN_ASSERT_STRING_EQUAL("ipsum", o.get_string("-s").c_str());
+	WIN_ASSERT_STRING_EQUAL("default 2", o.get_string("-a").c_str());
+}
+END_TEST
+
+BEGIN_TEST(ProcessStringAndBoolOption) {
+	Opt o;
+	o.add_string("-s", "String test", "default 1");
+	o.add_string("-a", "Another String test", "default 2");
+	o.add_bool("-b", "Bool test 1", true);
+	o.add_bool("-c", "Bool test 2", false);
+	WIN_ASSERT_STRING_EQUAL("default 1", o.get_string("-s").c_str());
+	WIN_ASSERT_STRING_EQUAL("default 2", o.get_string("-a").c_str());
+	WIN_ASSERT_TRUE(o.get_bool("-b"));
+	WIN_ASSERT_FALSE(o.get_bool("-c"));
+
+	int argc = 5;
+	char* argv[5];
+	argv[0] = "programName";
+	argv[1] = "-s";
+	argv[2] = "ipsum";
+	argv[3] = "-b";
+	argv[4] = "0";
+
+	o.process(argc, argv);
+	WIN_ASSERT_STRING_EQUAL("ipsum", o.get_string("-s").c_str());
+	WIN_ASSERT_STRING_EQUAL("default 2", o.get_string("-a").c_str());
+	WIN_ASSERT_FALSE(o.get_bool("-b"));
+	WIN_ASSERT_FALSE(o.get_bool("-c"));
+}
+END_TEST
