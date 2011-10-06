@@ -120,7 +120,7 @@ void Opt::add_switch(std::string option, std::string description) {
 	switchOption->option = option;
 	switchOption->description = description;
 	switchOption->value = false;
-	switchOption->stringValue = "0";
+	switchOption->stringValue = "";
 	this->argumentMap.insert(std::pair<std::string, Option*>(option, switchOption));
 }
 
