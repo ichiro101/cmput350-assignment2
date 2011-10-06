@@ -47,7 +47,11 @@ public:
 	
 	// remove last element (precond: !empty)
 	void pop() {
-		logicalLength--;
+		if(!empty()) {
+			logicalLength--;
+		} else {
+			throw "Stack is Empty";
+		}
 	}
 
 	// true iff no element present
@@ -68,6 +72,8 @@ public:
 	T &top(){
 		if(!empty()) {
 			return p[logicalLength - 1];
+		} else {
+			throw "Stack is empty";
 		}
 	}
 

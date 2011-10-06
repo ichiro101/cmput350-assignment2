@@ -79,7 +79,6 @@
     <ClInclude Include="Opt.h" />
     <ClInclude Include="Option.h" />
     <ClInclude Include="Stack.h" />
-    <ClInclude Include="StandardError.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

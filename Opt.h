@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Option.h"
-#include "StandardError.h"
 
 #include <iostream>
 #include <sstream>
@@ -36,4 +35,24 @@ private:
 	// ivars
 	std::map<std::string, Option*> argumentMap;
 	std::vector<std::string> argumentsInString;
+};
+
+class StandardError
+{
+public:
+	StandardError() { }
+
+	StandardError(std::string message) {
+		this->message = message;
+	}
+
+	std::string message;
+};
+
+class InvalidArgumentError: public StandardError
+{
+public:
+	InvalidArgumentError(std::string argument) {
+		this->message = "Invalid argument to option " + argument;
+	}
 };
