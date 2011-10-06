@@ -19,7 +19,11 @@ void Opt::process(int argc, char* argv[]) {
 	for(iter = this->argumentMap.begin(); iter != this->argumentMap.end(); iter++) {
 		std::vector<std::string>::iterator argIter = std::find(argumentsInString.begin(), argumentsInString.end(), iter->first);
 		if(argIter != argumentsInString.end()) {
-			processValueByType(iter, argIter);
+			try{
+				processValueByType(iter, argIter);
+			} catch(StandardError* exception) {
+				std::cout << exception->message << std::endl;
+			}
 		}
 	}
 }
@@ -35,7 +39,14 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 
 		// take the next option for the value of the argument
 		argIter++;
-		int value = atoi(argIter->c_str());
+
+		std::istringstream iss(argIter->c_str());
+		int value;
+		iss >> value;
+		if(!iss.eof()) {
+			throw new StandardError("Invalid Arguments to Option " + iter->second->option);
+		}
+
 		static_cast<IntegerOption*>(integerOption)->value = value;
 	} else if(iter->second->getType() == TypeDouble) {
 		Option* doubleOption = this->argumentMap.find(iter->first)->second;
@@ -43,7 +54,12 @@ void Opt::processValueByType(std::map<std::string, Option*>::iterator iter, std:
 		// take the next argument
 		argIter++;
 
-		double value = atof(argIter->c_str());
+		std::istringstream iss(argIter->c_str());
+		double value;
+		iss >> value;
+		if(!iss.eof()) {
+			throw new StandardError("Invalid Arguments to Option " + iter->second->option);
+		}
 		static_cast<DoubleOption*>(doubleOption)->value = value;
 	} else if(iter->second->getType() == TypeString) {
 		Option* stringOption = this->argumentMap.find(iter->first)->second;

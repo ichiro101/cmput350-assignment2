@@ -1,3 +1,8 @@
+// UNCOMMENT THE FOLLOWING if you wish to run the unit tests
+// #define TEST
+
+#ifdef TEST
+
 #include "WinUnit.h"
 #include "Opt.H"
 
@@ -144,3 +149,4 @@ BEGIN_TEST(ProcessStringAndBoolOption) {
 	WIN_ASSERT_FALSE(o.get_bool("-c"));
 }
 END_TEST
+#endif

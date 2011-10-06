@@ -13,3 +13,11 @@ public:
 
 	std::string message;
 };
+
+class InvalidArgumentError: public StandardError
+{
+public:
+	InvalidArgumentError(std::string argument) {
+		this->message = "Invalid argument to option " + argument;
+	}
+};
